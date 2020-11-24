@@ -36,6 +36,7 @@ enum class BodyType
 };
 struct Body
 {
+    bool border = true;
     bool gravity = false;
     Vec2f position = Vec2f::zero;
     Vec2f velocity = Vec2f::zero;

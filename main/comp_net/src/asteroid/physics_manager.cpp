@@ -51,6 +51,15 @@ void PhysicsManager::FixedUpdate(seconds dt)
             body.velocity.y -= 9.81*dt.count();
         body.position += body.velocity * dt.count();
         body.rotation += body.angularVelocity * dt.count();
+    	if(body.border)
+    	{
+            if(body.position.x<-3)            
+                body.velocity.x = 1;           
+            if (body.position.x > 3)           
+                body.velocity.x = -1;
+            
+    		
+    	}
         bodyManager_.SetComponent(entity, body);
     }
     for (Entity entity = 0; entity < entityManager_.get().GetEntitiesSize(); entity++)
