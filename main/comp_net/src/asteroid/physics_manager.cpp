@@ -47,6 +47,8 @@ void PhysicsManager::FixedUpdate(seconds dt)
         if (!entityManager_.get().HasComponent(entity, EntityMask(neko::ComponentType::BODY2D)))
             continue;
         auto body = bodyManager_.GetComponent(entity);
+        if (body.gravity)
+            body.velocity.y -= 9.81*dt.count();
         body.position += body.velocity * dt.count();
         body.rotation += body.angularVelocity * dt.count();
         bodyManager_.SetComponent(entity, body);

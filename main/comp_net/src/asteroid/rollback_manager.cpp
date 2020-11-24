@@ -322,6 +322,21 @@ void RollbackManager::OnCollision(Entity entity1, Entity entity2)
     std::function<void(const PlayerCharacter&, Entity, const Bullet&, Entity)> ManageCollision =
         [this](const auto& player, auto playerEntity, const auto& bullet, auto bulletEntity)
     {
+        if(player.hitting)
+        {
+            auto playerCharacter = currentPlayerManager_.GetComponent(playerEntity);
+            auto playerBody = currentPhysicsManager_.GetBody(playerEntity);
+            auto ball = currentPhysicsManager_.GetBody(bulletEntity);
+
+        	playerCharacter.hitting = false;
+            ball.velocity = (ball.velocity.Magnitude()+15)*(ball.position-playerBody.position);
+        	
+            currentPlayerManager_.SetComponent(playerEntity, playerCharacter);
+            currentPhysicsManager_.SetBody(playerEntity, playerBody);
+            currentPhysicsManager_.SetBody(bulletEntity, ball);
+        }
+
+        /*
         if (player.playerNumber != bullet.playerNumber)
         {
             gameManager_.DestroyBullet(bulletEntity);
@@ -333,7 +348,7 @@ void RollbackManager::OnCollision(Entity entity1, Entity entity2)
                 playerCharacter.invincibilityTime = playerInvincibilityPeriod;
             }
             currentPlayerManager_.SetComponent(playerEntity, playerCharacter);
-        }
+        }*/
     };
     if(entityManager_.HasComponent(entity1, EntityMask(ComponentType::PLAYER_CHARACTER)) && 
         entityManager_.HasComponent(entity2, EntityMask(ComponentType::BULLET)))
@@ -357,6 +372,7 @@ void RollbackManager::SpawnBullet(net::PlayerNumber playerNumber, Entity entity,
     createdEntities_.push_back({entity, testedFrame_});
 
     Body bulletBody;
+    bulletBody.gravity = true;
     bulletBody.position = position;
     bulletBody.velocity = velocity;
     Box bulletBox;

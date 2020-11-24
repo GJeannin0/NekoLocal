@@ -139,6 +139,7 @@ void SimulationClient::ReceivePacket(const asteroid::Packet* packet)
             const auto* startGamePacket = static_cast<const asteroid::StartGamePacket*>(packet);
             unsigned long startingTime = ConvertFromBinary<unsigned long>(startGamePacket->startTime);
             gameManager_.StartGame(startingTime);
+            //gameManager_.SpawnBullet(0, Vec2f(2, 2), Vec2f(0, 0));
             break;
         }
         case asteroid::PacketType::INPUT:

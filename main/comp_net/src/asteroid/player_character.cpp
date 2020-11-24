@@ -52,6 +52,35 @@ void PlayerCharacterManager::FixedUpdate(seconds dt)
         const bool up = input & PlayerInput::UP;
         const bool down = input & PlayerInput::DOWN;
 
+        if (playerCharacter.hitCooldown > 0)
+            playerCharacter.hitCooldown -= dt.count();
+        else
+        {
+            playerCharacter.hitCooldown = 0;
+            playerCharacter.hitting = false;
+        }
+    	
+        if (down & playerCharacter.hitCooldown <= 0)
+        {
+            playerCharacter.hitCooldown = 1.0f;
+            playerCharacter.hitting = true;
+        }
+    	
+        const auto maxSpeed = 500;
+        const auto acceleration = 10;
+        auto speed = playerBody.velocity.x;
+        speed += ((left ? 1.0f : 0.0f) + (right ? -1.0f : 0.0f))*dt.count()*acceleration;
+    	
+        if (speed > maxSpeed)
+            speed = maxSpeed;
+        if (speed < -maxSpeed)
+            speed = -maxSpeed;
+
+        playerBody.velocity.x = speed;
+        physicsManager_.get().SetBody(playerEntity, playerBody);
+    	//Sprites
+
+    	
         const auto angularVelocity = ((left ? 1.0f : 0.0f) + (right ? -1.0f : 0.0f)) * playerAngularSpeed;
 
         playerBody.angularVelocity = angularVelocity;
@@ -59,13 +88,13 @@ void PlayerCharacterManager::FixedUpdate(seconds dt)
         auto dir = Vec2f::up;
         dir = dir.Rotate(-(playerBody.rotation + playerBody.angularVelocity * dt.count()));
 
-        const auto acceleration = ((down ? -1.0f : 0.0f) + (up ? 1.0f : 0.0f)) * dir;
+        //const auto acceleration = ((down ? -1.0f : 0.0f) + (up ? 1.0f : 0.0f)) * Vec2f::right;
 
 
-        playerBody.velocity += acceleration * dt.count();
+       // playerBody.velocity += acceleration * dt.count();
 
         physicsManager_.get().SetBody(playerEntity, playerBody);
-
+        
         if(playerCharacter.invincibilityTime > 0.0f)
         {
             playerCharacter.invincibilityTime -= dt.count();
@@ -83,10 +112,11 @@ void PlayerCharacterManager::FixedUpdate(seconds dt)
             if(input & PlayerInput::SHOOT)
             {
                 const auto currentPlayerSpeed = playerBody.velocity.Magnitude();
-                const auto bulletVelocity = dir * 
-                    ((Vec2f::Dot(playerBody.velocity, dir) > 0.0f ? currentPlayerSpeed : 0.0f)
-                    + bulletSpeed);
-                const auto bulletPosition = playerBody.position + dir * 0.5f + playerBody.velocity * dt.count();
+                const auto bulletVelocity = Vec2f(0, 0);
+                auto bulletPosition = Vec2f(-2, 2);
+            	if(playerCharacter.playerNumber == 1)
+                     bulletPosition = Vec2f(2, 2);
+
                 gameManager_.get().SpawnBullet(playerCharacter.playerNumber,
                                                bulletPosition,
                                                bulletVelocity);

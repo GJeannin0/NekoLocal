@@ -32,6 +32,8 @@ namespace neko::asteroid
 
 struct PlayerCharacter
 {
+    bool hitting = false;
+    float hitCooldown = 0.0f;
     float shootingTime = 0.0f;
     net::PlayerInput input = 0;
     net::PlayerNumber playerNumber = net::INVALID_PLAYER;

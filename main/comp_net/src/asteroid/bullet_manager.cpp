@@ -39,11 +39,11 @@ void BulletManager::FixedUpdate(seconds dt)
         if(entityManager_.get().HasComponent(entity, EntityMask(ComponentType::BULLET)))
         {
             auto& bullet = components_[entity];
-            bullet.remainingTime -= dt.count();
+            /*bullet.remainingTime -= dt.count();
             if(bullet.remainingTime < 0.0f)
             {
                 entityManager_.get().DestroyEntity(entity);
-            }
+            }*/
         }
     }
 }

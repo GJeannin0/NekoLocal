@@ -36,6 +36,7 @@ enum class BodyType
 };
 struct Body
 {
+    bool gravity = false;
     Vec2f position = Vec2f::zero;
     Vec2f velocity = Vec2f::zero;
     degree_t angularVelocity = degree_t(0.0f);
