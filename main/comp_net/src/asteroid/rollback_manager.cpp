@@ -329,7 +329,7 @@ void RollbackManager::OnCollision(Entity entity1, Entity entity2)
             auto ball = currentPhysicsManager_.GetBody(bulletEntity);
 
         	playerCharacter.hitting = false;
-            ball.velocity = (ball.velocity.Magnitude()+15)*(ball.position-playerBody.position);
+            ball.velocity = (ball.position-playerBody.position)*10;
         	
             currentPlayerManager_.SetComponent(playerEntity, playerCharacter);
             currentPhysicsManager_.SetBody(playerEntity, playerBody);
