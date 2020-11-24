@@ -66,8 +66,8 @@ void PlayerCharacterManager::FixedUpdate(seconds dt)
             playerCharacter.hitting = true;
         }
     	
-        const auto maxSpeed = 500;
-        const auto acceleration = 10;
+        const auto maxSpeed = 7;
+        const auto acceleration = 15;
         auto speed = playerBody.velocity.x;
         speed += ((left ? 1.0f : 0.0f) + (right ? -1.0f : 0.0f))*dt.count()*acceleration;
     	

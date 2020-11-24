@@ -257,7 +257,7 @@ void ClientGameManager::Update(seconds dt)
         for(net::PlayerNumber playerNumber = 0; playerNumber < maxPlayerNmb; playerNumber++)
         {
             const auto playerEntity = GetEntityFromPlayerNumber(playerNumber);
-            health += fmt::format("P{} Points: {} ",playerNumber+1,playerManager.GetComponent(playerEntity).health);
+            health += fmt::format("P{} Pts: {} ",playerNumber+1,playerManager.GetComponent(playerEntity).health);
         }
         fontManager_.RenderText(fontId_, health, Vec2f(0.0f, -40.0f), TextAnchor::TOP_LEFT, 0.75f, Color4(Color::white, 1.0f));
     }
