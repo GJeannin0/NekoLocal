@@ -58,6 +58,8 @@ void PhysicsManager::FixedUpdate(seconds dt)
             if (body.position.x > 3)           
                 body.velocity.x = -1;
     	}
+        
+    	
         bodyManager_.SetComponent(entity, body);
     }
     for (Entity entity = 0; entity < entityManager_.get().GetEntitiesSize(); entity++)
