@@ -37,7 +37,7 @@ struct PlayerCharacter
     float shootingTime = 0.0f;
     net::PlayerInput input = 0;
     net::PlayerNumber playerNumber = net::INVALID_PLAYER;
-    short health = playerHealth;
+    short health = playerPoints;
     float invincibilityTime = 0.0f;
 };
 class GameManager;

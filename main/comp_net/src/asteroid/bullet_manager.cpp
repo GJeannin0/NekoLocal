@@ -36,6 +36,7 @@ void BulletManager::FixedUpdate(seconds dt)
 {
     for(Entity entity = 0; entity < entityManager_.get().GetEntitiesSize(); entity++)
     {
+    	/*
         if(entityManager_.get().HasComponent(entity, EntityMask(ComponentType::BULLET)))
         {
             auto& bullet = components_[entity];
@@ -46,6 +47,7 @@ void BulletManager::FixedUpdate(seconds dt)
                 entityManager_.get().DestroyEntity(entity);
             }
         }
+    	*/
     }
 }
 }

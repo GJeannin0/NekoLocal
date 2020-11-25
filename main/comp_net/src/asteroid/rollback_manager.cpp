@@ -335,8 +335,7 @@ void RollbackManager::OnCollision(Entity entity1, Entity entity2)
             currentPhysicsManager_.SetBody(playerEntity, playerBody);
             currentPhysicsManager_.SetBody(bulletEntity, ball);
         }
-
-        /*
+       /*
         if (player.playerNumber != bullet.playerNumber)
         {
             gameManager_.DestroyBullet(bulletEntity);

@@ -123,7 +123,7 @@ net::PlayerNumber GameManager::CheckWinner()
         if(!entityManager_.HasComponent(entity, EntityMask(ComponentType::PLAYER_CHARACTER)))
             continue;
         const auto& player = playerManager.GetComponent(entity);
-        if(player.health > 0)
+        if(player.health < 3)
         {
             alivePlayer++;
             winner = player.playerNumber;
@@ -206,22 +206,22 @@ void ClientGameManager::Update(seconds dt)
                 transformManager_.SetRotation(entity, rollbackManager_.GetTransformManager().GetRotation(entity));
                 transformManager_.UpdateDirtyComponent(entity);
             }
-            if (entityManager_.HasComponent(entity,EntityMask(ComponentType::BULLET)))
+            if (entityManager_.HasComponent(entity, EntityMask(ComponentType::BULLET)))
             {
-                if(transformManager_.GetPosition(entity).y<-7)
+                if (transformManager_.GetPosition(entity).y < -7)
                 {
                     if (transformManager_.GetPosition(entity).x < 0)
-                    {
+                    {  
                         //Give service to player 0
-                    	//AddPoint to player 1
+                       //AddPoint to player 1
                     }
-                	else
-                	{
+                    else
+                    {
                         //Give service to player 1
-                		//AddPoint to player 0
-                	}
-                	
-                }	            
+                        //AddPoint to player 0
+                    }
+                    DestroyBullet(entity);
+                }
             }
         }
     }
