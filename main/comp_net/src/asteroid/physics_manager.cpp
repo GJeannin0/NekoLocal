@@ -57,8 +57,6 @@ void PhysicsManager::FixedUpdate(seconds dt)
                 body.velocity.x = 1;           
             if (body.position.x > 3)           
                 body.velocity.x = -1;
-            
-    		
     	}
         bodyManager_.SetComponent(entity, body);
     }

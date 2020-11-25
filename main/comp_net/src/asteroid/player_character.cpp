@@ -60,9 +60,9 @@ void PlayerCharacterManager::FixedUpdate(seconds dt)
             playerCharacter.hitting = false;
         }
     	
-        if (down & playerCharacter.hitCooldown <= 0)
+        if (down && playerCharacter.hitCooldown <= 0)
         {
-            playerCharacter.hitCooldown = 1.0f;
+            playerCharacter.hitCooldown = 0.1f;
             playerCharacter.hitting = true;
         }
     	
@@ -77,7 +77,7 @@ void PlayerCharacterManager::FixedUpdate(seconds dt)
             speed = -maxSpeed;
 
         playerBody.velocity.x = speed;
-        physicsManager_.get().SetBody(playerEntity, playerBody);
+        //physicsManager_.get().SetBody(playerEntity, playerBody);
     	//Sprites
 
     	
@@ -117,7 +117,7 @@ void PlayerCharacterManager::FixedUpdate(seconds dt)
             	if(playerCharacter.playerNumber == 1)
                      bulletPosition = Vec2f(2, 2);
 
-                gameManager_.get().SpawnBullet(playerCharacter.playerNumber,
+                gameManager_.get().SpawnBullet(2,
                                                bulletPosition,
                                                bulletVelocity);
                 playerCharacter.shootingTime = 0.0f;

@@ -36,9 +36,10 @@ const short playerHealth = 5;
 const float playerSpeed = 1.0f;
 const degree_t playerAngularSpeed = degree_t(150.0f);
 const float playerShootingPeriod = 0.3f;
+const float playerScale = 1.0f;
 const float bulletSpeed = 10.0f;
-const float bulletScale = 2.0f;
-const float bulletPeriod = 3.0f;
+const float bulletScale = 1.0f;
+const float bulletPeriod = 15.0f;
 const float playerInvincibilityPeriod = 1.5f;
 const float invincibilityFlashPeriod = 0.5f;
 

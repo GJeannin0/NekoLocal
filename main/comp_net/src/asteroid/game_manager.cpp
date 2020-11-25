@@ -248,11 +248,15 @@ void ClientGameManager::Update(seconds dt)
                 const std::string countDownText = fmt::format("Starts in {}", ((startingTime_ - ms) / 1000 + 1));
                 fontManager_.RenderText(fontId_, countDownText, Vec2f::zero, TextAnchor::CENTER_LEFT, 1.0f, Color4(Color::white, 1.0f));
             }
+         
         }
     }
     else
     {
-        std::string health;
+		
+        //rollbackManager_.SpawnBullet(2, SpawnBullet(2, Vec2f(0, 0), Vec2f(0, 0)), Vec2f(0, 0), Vec2f(0, 0));
+
+    	std::string health;
         const auto& playerManager = rollbackManager_.GetPlayerCharacterManager();
         for(net::PlayerNumber playerNumber = 0; playerNumber < maxPlayerNmb; playerNumber++)
         {

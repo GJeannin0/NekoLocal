@@ -286,7 +286,7 @@ void RollbackManager::SpawnPlayer(net::PlayerNumber playerNumber, Entity entity,
     playerBody.position = position;
     playerBody.rotation = rotation;
     Box playerBox;
-    playerBox.extends = Vec2f::one * 0.5f;
+    playerBox.extends = Vec2f::one * playerScale * 0.5f;
 
     PlayerCharacter playerCharacter;
     playerCharacter.playerNumber = playerNumber;
@@ -322,14 +322,14 @@ void RollbackManager::OnCollision(Entity entity1, Entity entity2)
     std::function<void(const PlayerCharacter&, Entity, const Bullet&, Entity)> ManageCollision =
         [this](const auto& player, auto playerEntity, const auto& bullet, auto bulletEntity)
     {
-        if(player.hitting)
+        if(true)//player.hitting)
         {
             auto playerCharacter = currentPlayerManager_.GetComponent(playerEntity);
             auto playerBody = currentPhysicsManager_.GetBody(playerEntity);
             auto ball = currentPhysicsManager_.GetBody(bulletEntity);
 
         	playerCharacter.hitting = false;
-            ball.velocity = (ball.position - playerBody.position) * 9;//Vec2f(cosf(playerBody.rotation.to<float>()),sinf(playerBody.rotation.to))*9;
+            ball.velocity = (ball.position - playerBody.position).Normalized() * 9;//Vec2f(cosf(playerBody.rotation.to<float>()),sinf(playerBody.rotation.to))*9;
         	
             currentPlayerManager_.SetComponent(playerEntity, playerCharacter);
             currentPhysicsManager_.SetBody(playerEntity, playerBody);
